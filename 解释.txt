@@ -1,0 +1,20 @@
+Facade
+每个Facade包含一个Model、View、Controller
+通过Facade名字获取或创建
+IFacade facade = Facade.GetInstance("FacadeTestKey1", () => new Facade("FacadeTestKey1"));
+Controller注册所有命令（Command）再command中注册proxy
+Model注册所有代理（Proxy） 代理为数据（一个model中有好多数据）
+View注册所有（Mediator）-----mediator中保存界面控制，mediator注册本界面关心的消息,不同的mediator通过notification通信
+mediator.ListNotificationInterests()获取所有关心的消息
+IObserver observer = new Observer(mediator.HandleNotification, mediator);创建观察者
+for (int i = 0; i < interests.Length; i++)
+                    {
+                        RegisterObserver(interests[i], observer);
+                    }
+------------------------------------
+通过SendNotification触发命令
+facade.SendNotification("FacadeTestNote", vo);
+view.NotifyObservers 只是View通知观察者
+
+所有的controller、Model、View分别保存到自己的静态字典中
+
